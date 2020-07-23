@@ -8,7 +8,7 @@ import randomColor from "randomcolor";
 
 import Icon from "./icon/Message";
 
-const rowCount = 1000;
+const rowCount = 25;
 
 //class App extends Component {
 const App = () => {
@@ -40,7 +40,9 @@ const App = () => {
           <span className="image">
             <Icon name="message" width={25} fill={randomColor()} />
           </span>
-          <span>{item.name} {item.id}</span>
+          <span>
+            {item.name} {item.id}
+          </span>
           <Collapsible
             transitionTime={400}
             trigger="Open Dialog"
@@ -52,7 +54,15 @@ const App = () => {
       </div>
     );
   };
-  const handleInfiniteOnLoad = () => {};
+  const handleInfiniteOnLoad = () => {
+    setLoading(true);
+
+    if (list.length > 100) {
+      setHasMore(false);
+      setLoading(false);
+      return;
+    }
+  };
 
   return (
     <div className="App">
@@ -61,15 +71,26 @@ const App = () => {
 
         <h1 className="App-title">Details List</h1>
       </header>
-      <InfiniteScroll
-        initialLoad={false}
-        pageStart={0}
-        loadMore={handleInfiniteOnLoad}
-        hasMore={!loading && hasMore}
-        useWindow={false}
+
+      <div
+        className="scroll-content"
+        style={{ height: "300px", overflow: "auto" }}
       >
-        <div className="list">{list.map(renderRow)}</div>
-      </InfiniteScroll>
+        <InfiniteScroll
+          initialLoad={false}
+          pageStart={0}
+          loadMore={handleInfiniteOnLoad}
+          hasMore={!loading && hasMore}
+          loader={
+            <div className="loader" key={0}>
+              Loading ...
+            </div>
+          }
+          useWindow={false}
+        >
+          <div className="list">{list.map(renderRow)}</div>
+        </InfiniteScroll>
+      </div>
     </div>
   );
 };
