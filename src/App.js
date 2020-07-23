@@ -40,7 +40,7 @@ const App = () => {
           <span className="image">
             <Icon name="message" width={25} fill={randomColor()} />
           </span>
-          <span>{item.name}</span>
+          <span>{item.name} {item.id}</span>
           <Collapsible
             transitionTime={400}
             trigger="Open Dialog"
