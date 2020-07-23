@@ -1,2 +1,2 @@
-# Infinite_Scroll_FunctionalComponent2
+# InfiniteScroll_not
 Created with CodeSandbox
